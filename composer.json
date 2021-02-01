@@ -1,0 +1,21 @@
+{
+  "name": "phpguild/user-bundle",
+  "description": "Symfony User Bundle",
+  "type": "symfony-bundle",
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/phpguild/user-bundle",
+  "authors": [
+    {
+      "name": "Jonathan SAHM",
+      "homepage": "https://github.com/johnstyle"
+    }
+  ],
+  "require": {
+    "php": ">=7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "PhpGuild\\UserBundle\\": "src/"
+    }
+  }
+}

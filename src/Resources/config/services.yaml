@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  PhpGuild\UserBundle\:
+    resource: '../../*'
+    exclude: '../../{DependencyInjection,Resources,PhpGuildUserBundle.php}'
+
+  PhpGuild\UserBundle\EventSubscriber\UserSubscriber:
+    tags:
+      - { name: 'doctrine.event_subscriber' }
