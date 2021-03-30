@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpGuild\UserBundle\Model;
 
+use PhpGuild\DoctrineExtraBundle\Model\Enabled\EnabledInterface;
 use PhpGuild\DoctrineExtraBundle\Model\IdInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
@@ -11,7 +12,11 @@ use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 /**
  * Interface UserInterface
  */
-interface UserInterface extends IdInterface, BaseUserInterface, EquatableInterface
+interface UserInterface extends
+    IdInterface,
+    EnabledInterface,
+    BaseUserInterface,
+    EquatableInterface
 {
     /**
      * isActive
@@ -19,22 +24,6 @@ interface UserInterface extends IdInterface, BaseUserInterface, EquatableInterfa
      * @return bool
      */
     public function isActive(): bool;
-
-    /**
-     * isEnabled
-     *
-     * @return bool
-     */
-    public function isEnabled(): bool;
-
-    /**
-     * setEnabled
-     *
-     * @param bool $enabled
-     *
-     * @return UserInterface
-     */
-    public function setEnabled(bool $enabled): UserInterface;
 
     /**
      * isConfirmed

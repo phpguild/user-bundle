@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace PhpGuild\UserBundle\Model;
 
+use PhpGuild\DoctrineExtraBundle\Model\Enabled\EnabledTrait;
+
 /**
  * Trait UserTrait
  */
 trait UserTrait
 {
+    use EnabledTrait;
+
     /**
      * isActive
      *
@@ -17,30 +21,6 @@ trait UserTrait
     public function isActive(): bool
     {
         return $this->confirmed && $this->enabled;
-    }
-
-    /**
-     * isEnabled
-     *
-     * @return bool
-     */
-    public function isEnabled(): bool
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * setEnabled
-     *
-     * @param bool $enabled
-     *
-     * @return UserInterface
-     */
-    public function setEnabled(bool $enabled): UserInterface
-    {
-        $this->enabled = $enabled;
-
-        return $this;
     }
 
     /**
