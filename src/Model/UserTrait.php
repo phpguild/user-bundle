@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpGuild\UserBundle\Model;
 
 use PhpGuild\DoctrineExtraBundle\Model\Enabled\EnabledTrait;
+use PhpGuild\DoctrineExtraBundle\Model\Confirmed\ConfirmedTrait;
 
 /**
  * Trait UserTrait
@@ -12,6 +13,7 @@ use PhpGuild\DoctrineExtraBundle\Model\Enabled\EnabledTrait;
 trait UserTrait
 {
     use EnabledTrait;
+    use ConfirmedTrait;
 
     /**
      * isActive
@@ -20,31 +22,7 @@ trait UserTrait
      */
     public function isActive(): bool
     {
-        return $this->confirmed && $this->enabled;
-    }
-
-    /**
-     * isConfirmed
-     *
-     * @return bool
-     */
-    public function isConfirmed(): bool
-    {
-        return $this->confirmed;
-    }
-
-    /**
-     * setConfirmed
-     *
-     * @param bool $confirmed
-     *
-     * @return UserInterface
-     */
-    public function setConfirmed(bool $confirmed): UserInterface
-    {
-        $this->confirmed = $confirmed;
-
-        return $this;
+        return $this->isConfirmed() && $this->isEnabled();
     }
 
     /**

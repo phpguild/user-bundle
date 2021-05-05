@@ -6,6 +6,7 @@ namespace PhpGuild\UserBundle\Model;
 
 use PhpGuild\DoctrineExtraBundle\Model\Enabled\EnabledInterface;
 use PhpGuild\DoctrineExtraBundle\Model\IdInterface;
+use PhpGuild\DoctrineExtraBundle\Model\Confirmed\ConfirmedInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 
@@ -15,32 +16,10 @@ use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 interface UserInterface extends
     IdInterface,
     EnabledInterface,
+    ConfirmedInterface,
     BaseUserInterface,
     EquatableInterface
 {
-    /**
-     * isActive
-     *
-     * @return bool
-     */
-    public function isActive(): bool;
-
-    /**
-     * isConfirmed
-     *
-     * @return bool
-     */
-    public function isConfirmed(): bool;
-
-    /**
-     * setConfirmed
-     *
-     * @param bool $confirmed
-     *
-     * @return UserInterface
-     */
-    public function setConfirmed(bool $confirmed): UserInterface;
-
     /**
      * getEmail
      *

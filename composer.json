@@ -12,7 +12,12 @@
   ],
   "require": {
     "php": ">=7.1",
-    "phpguild/doctrine-extra-bundle": "^1.0"
+    "phpguild/doctrine-extra-bundle": "^1.0",
+    "symfony/config": "*",
+    "symfony/dependency-injection": "*",
+    "symfony/http-kernel": "*",
+    "symfony/security-bundle": "*",
+    "symfony/translation": "*"
   },
   "autoload": {
     "psr-4": {
