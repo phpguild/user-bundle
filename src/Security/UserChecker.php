@@ -54,13 +54,13 @@ class UserChecker implements UserCheckerInterface
 
         if (!$user->isActive()) {
             throw new CustomUserMessageAccountStatusException(
-                $this->translator->trans('user_account_is_not_active.')
+                $this->translator->trans('user_account_is_not_active')
             );
         }
 
         if (!$user->isEnabled()) {
             throw new CustomUserMessageAccountStatusException(
-                $this->translator->trans('user_account_is_disable.')
+                $this->translator->trans('user_account_is_disable')
             );
         }
     }

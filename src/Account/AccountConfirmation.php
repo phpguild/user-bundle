@@ -51,7 +51,9 @@ class AccountConfirmation
         ]);
 
         if (!$user) {
-            throw new AccountConfirmationException($this->translator->trans('user_account_confirmation_token_expired'));
+            throw new AccountConfirmationException(
+                $this->translator->trans('user_account_confirmation_token_expired')
+            );
         }
 
         $user->setConfirmedAt(new \DateTime());
