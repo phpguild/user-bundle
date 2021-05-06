@@ -6,6 +6,7 @@ namespace PhpGuild\UserBundle\Model;
 
 use PhpGuild\DoctrineExtraBundle\Model\Enabled\EnabledTrait;
 use PhpGuild\DoctrineExtraBundle\Model\Confirmed\ConfirmedTrait;
+use PhpGuild\UserBundle\Model\PasswordRecovery\PasswordRecoveryTrait;
 
 /**
  * Trait UserTrait
@@ -14,6 +15,7 @@ trait UserTrait
 {
     use EnabledTrait;
     use ConfirmedTrait;
+    use PasswordRecoveryTrait;
 
     /**
      * isActive

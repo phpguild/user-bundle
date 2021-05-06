@@ -32,7 +32,26 @@ class AccountConfirmation
     }
 
     /**
-     * confirmUser
+     * request
+     *
+     * @param UserInterface $user
+     *
+     * @throws \Exception
+     */
+    public function request(UserInterface $user): void
+    {
+        if ($user->getConfirmedAt()) {
+            throw new AccountConfirmationException(
+                $this->translator->trans('user_account_confirmation_already_confirmed')
+            );
+        }
+
+        $user->setConfirmedToken(hash('sha256', random_bytes(32)));
+        $this->entityManager->flush();
+    }
+
+    /**
+     * validate
      *
      * @param string $userClassName
      * @param string $token
@@ -41,8 +60,14 @@ class AccountConfirmation
      *
      * @throws AccountConfirmationException
      */
-    public function confirmUser(string $userClassName, string $token): UserInterface
+    public function validate(string $userClassName, string $token): UserInterface
     {
+        if ('' === $token) {
+            throw new AccountConfirmationException(
+                $this->translator->trans('user_account_confirmation_token_invalid')
+            );
+        }
+
         $userRepository = $this->entityManager->getRepository($userClassName);
 
         /** @var UserInterface $user */
@@ -56,8 +81,16 @@ class AccountConfirmation
             );
         }
 
-        $user->setConfirmedAt(new \DateTime());
         $user->setConfirmedToken(null);
+
+        if ($user->getConfirmedAt()) {
+            $this->entityManager->flush();
+            throw new AccountConfirmationException(
+                $this->translator->trans('user_account_confirmation_already_confirmed')
+            );
+        }
+
+        $user->setConfirmedAt(new \DateTime());
         $this->entityManager->flush();
 
         return $user;

@@ -7,6 +7,7 @@ namespace PhpGuild\UserBundle\Model;
 use PhpGuild\DoctrineExtraBundle\Model\Enabled\EnabledInterface;
 use PhpGuild\DoctrineExtraBundle\Model\IdInterface;
 use PhpGuild\DoctrineExtraBundle\Model\Confirmed\ConfirmedInterface;
+use PhpGuild\UserBundle\Model\PasswordRecovery\PasswordRecoveryInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 
@@ -17,6 +18,7 @@ interface UserInterface extends
     IdInterface,
     EnabledInterface,
     ConfirmedInterface,
+    PasswordRecoveryInterface,
     BaseUserInterface,
     EquatableInterface
 {
