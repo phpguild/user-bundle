@@ -87,7 +87,7 @@ final class UserSubscriber implements EventSubscriber
     public function resolveObject(UserInterface $entity): void
     {
         if (!$entity->getSalt()) {
-            $entity->setSalt(hash_hmac('sha256', random_bytes(128), random_bytes(128), true));
+            $entity->setSalt(hash_hmac('sha256', random_bytes(128), random_bytes(128)));
         }
 
         if (!$entity->getUsername()) {
@@ -100,7 +100,7 @@ final class UserSubscriber implements EventSubscriber
         }
 
         if (!$entity->getPassword()) {
-            $entity->setPassword(hash_hmac('sha256', random_bytes(128), random_bytes(128), true));
+            $entity->setPassword(hash_hmac('sha256', random_bytes(128), random_bytes(128)));
         }
     }
 }
