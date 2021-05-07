@@ -45,6 +45,8 @@ final class UserSubscriber implements EventSubscriber
      * prePersist
      *
      * @param LifecycleEventArgs $args
+     *
+     * @throws \Exception
      */
     public function prePersist(LifecycleEventArgs $args): void
     {
@@ -61,6 +63,8 @@ final class UserSubscriber implements EventSubscriber
      * preUpdate
      *
      * @param LifecycleEventArgs $args
+     *
+     * @throws \Exception
      */
     public function preUpdate(LifecycleEventArgs $args): void
     {
@@ -77,11 +81,13 @@ final class UserSubscriber implements EventSubscriber
      * resolveObject
      *
      * @param UserInterface $entity
+     *
+     * @throws \Exception
      */
     public function resolveObject(UserInterface $entity): void
     {
         if (!$entity->getSalt()) {
-            $entity->setSalt(hash_hmac('sha256', uniqid('', true), microtime()));
+            $entity->setSalt(hash_hmac('sha256', random_bytes(128), random_bytes(128), true));
         }
 
         if (!$entity->getUsername()) {
@@ -90,10 +96,11 @@ final class UserSubscriber implements EventSubscriber
 
         if ($entity->getPlainPassword()) {
             $entity->setPassword($this->encoder->encodePassword($entity, $entity->getPlainPassword()));
+            $entity->eraseCredentials();
         }
 
         if (!$entity->getPassword()) {
-            $entity->setPassword(hash_hmac('sha256', uniqid('', true), microtime()));
+            $entity->setPassword(hash_hmac('sha256', random_bytes(128), random_bytes(128), true));
         }
     }
 }

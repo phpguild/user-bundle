@@ -36,6 +36,15 @@ class UserChecker implements UserCheckerInterface
      */
     public function checkPreAuth(BaseUserInterface $user): void
     {
+    }
+
+    /**
+     * checkPostAuth
+     *
+     * @param BaseUserInterface $user
+     */
+    public function checkPostAuth(BaseUserInterface $user): void
+    {
         if (!$user instanceof UserInterface) {
             return;
         }
@@ -63,14 +72,5 @@ class UserChecker implements UserCheckerInterface
                 $this->translator->trans('user_account_is_disable')
             );
         }
-    }
-
-    /**
-     * checkPostAuth
-     *
-     * @param BaseUserInterface $user
-     */
-    public function checkPostAuth(BaseUserInterface $user): void
-    {
     }
 }

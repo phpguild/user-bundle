@@ -9,7 +9,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\MappingException;
-use PhpGuild\DoctrineExtraBundle\Model\Confirmed\ConfirmedInterface;
 use PhpGuild\UserBundle\Model\PasswordRecovery\PasswordRecoveryInterface;
 
 /**

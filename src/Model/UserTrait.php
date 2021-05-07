@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpGuild\UserBundle\Model;
 
+use Knp\DoctrineBehaviors\Contract\Entity\SoftDeletableInterface;
 use PhpGuild\DoctrineExtraBundle\Model\Enabled\EnabledTrait;
 use PhpGuild\DoctrineExtraBundle\Model\Confirmed\ConfirmedTrait;
 use PhpGuild\UserBundle\Model\PasswordRecovery\PasswordRecoveryTrait;
@@ -24,7 +25,9 @@ trait UserTrait
      */
     public function isActive(): bool
     {
-        return $this->isConfirmed() && $this->isEnabled();
+        return $this->isConfirmed()
+            && $this->isEnabled()
+            && (!$this instanceof SoftDeletableInterface || !$this->isDeleted());
     }
 
     /**

@@ -23,7 +23,7 @@ class AccountPasswordRecovery
 
     /** @var ValidatorInterface $validator */
     private $validator;
-    
+
     /** @var UserPasswordEncoderInterface $encoder */
     private $encoder;
 
@@ -56,6 +56,7 @@ class AccountPasswordRecovery
      * @return UserInterface
      *
      * @throws AccountConfirmationException
+     * @throws \Exception
      */
     public function request(string $userClassName, string $email): UserInterface
     {
@@ -78,10 +79,12 @@ class AccountPasswordRecovery
             );
         }
 
-        if (
-            $user->getPasswordRecoveryAt() instanceof \DateTime
-            && $user->getPasswordRecoveryAt()->format('Y-m-d H:i:s') > (new \DateTime())->modify('-24 hours')->format('Y-m-d H:i:s')
-        ) {
+        $expiredAt = (new \DateTime())->modify('-24 hours')->format('Y-m-d H:i:s');
+        $passwordRecoveryAt = $user->getPasswordRecoveryAt() instanceof \DateTime
+            ? $user->getPasswordRecoveryAt()->format('Y-m-d H:i:s')
+            : null;
+
+        if ($passwordRecoveryAt && $passwordRecoveryAt > $expiredAt) {
             throw new AccountConfirmationException(
                 $this->translator->trans('user_account_password_recovery_already_send')
             );
@@ -102,6 +105,9 @@ class AccountPasswordRecovery
      * @param string $password
      *
      * @return UserInterface
+     *
+     * @throws AccountPasswordRecoveryException
+     * @throws AccountPasswordRecoveryViolationException
      */
     public function validate(string $userClassName, string $token, string $password): UserInterface
     {
@@ -118,20 +124,30 @@ class AccountPasswordRecovery
             'passwordRecoveryToken' => $token,
         ]);
 
-        if (!$user || !$user->isActive()) {
-            throw new AccountPasswordRecoveryException(
-                $this->translator->trans('user_account_is_disable')
-            );
-        }
-
-        if (!$user->getPasswordRecoveryAt() instanceof \DateTime
-            || $user->getPasswordRecoveryAt()->format('Y-m-d H:i:s') < (new \DateTime())->modify('-24 hours')->format('Y-m-d H:i:s')
-        ) {
+        if (!$user) {
             throw new AccountPasswordRecoveryException(
                 $this->translator->trans('user_account_confirmation_token_expired')
             );
         }
 
+        if (!$user->isActive()) {
+            throw new AccountPasswordRecoveryException(
+                $this->translator->trans('user_account_is_disable')
+            );
+        }
+
+        $expiredAt = (new \DateTime())->modify('-24 hours')->format('Y-m-d H:i:s');
+        $passwordRecoveryAt = $user->getPasswordRecoveryAt() instanceof \DateTime
+            ? $user->getPasswordRecoveryAt()->format('Y-m-d H:i:s')
+            : null;
+
+        if (!$passwordRecoveryAt || $passwordRecoveryAt < $expiredAt) {
+            throw new AccountPasswordRecoveryException(
+                $this->translator->trans('user_account_confirmation_token_expired')
+            );
+        }
+
+        $user->setPassword(null);
         $user->setPlainPassword($password);
 
         $errors = $this->validator->validate($user);
@@ -144,6 +160,9 @@ class AccountPasswordRecovery
         }
 
         $user->setPassword($this->encoder->encodePassword($user, $user->getPlainPassword()));
+        $user->setPasswordRecoveryToken(null);
+        $user->setPasswordRecoveryAt(null);
+
         $this->entityManager->flush();
 
         return $user;

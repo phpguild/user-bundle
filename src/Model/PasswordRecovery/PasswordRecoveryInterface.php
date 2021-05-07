@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhpGuild\UserBundle\Model\PasswordRecovery;
 
-use PhpGuild\DoctrineExtraBundle\Model\IdInterface;
-
 /**
  * Interface PasswordRecoveryInterface
  */
@@ -13,7 +11,7 @@ interface PasswordRecoveryInterface
 {
     public const PASSWORD_RECOVERY_AT_FIELD_NAME = 'passwordRecoveryAt';
     public const PASSWORD_RECOVERY_TOKEN_FIELD_NAME = 'passwordRecoveryToken';
-    
+
     /**
      * getPasswordRecoveryAt
      *
