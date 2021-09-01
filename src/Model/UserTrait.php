@@ -55,6 +55,16 @@ trait UserTrait
     }
 
     /**
+     * getUserIdentifier
+     *
+     * @return string
+     */
+    public function getUserIdentifier(): string
+    {
+        return $this->username;
+    }
+
+    /**
      * getUsername
      *
      * @return string|null
