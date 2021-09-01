@@ -10,3 +10,8 @@ services:
   PhpGuild\UserBundle\EventSubscriber\UserSubscriber:
     tags:
       - { name: 'doctrine.event_subscriber' }
+
+  PhpGuild\UserBundle\EventSubscriber\DoctrineClassMetadata\:
+    resource: ../../EventSubscriber/DoctrineClassMetadata
+    tags:
+      - { name: doctrine.event_subscriber, priority: 256 }
