@@ -2004,16 +2004,16 @@
         },
         {
             "name": "phpguild/doctrine-extra-bundle",
-            "version": "v1.1.8",
+            "version": "v1.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpguild/doctrine-extra-bundle.git",
-                "reference": "a9080c9e825d1aeb19b9e0ad22738bd9c5124fdf"
+                "reference": "ee33007308c056d078adcc701ec511f32ea1c9f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpguild/doctrine-extra-bundle/zipball/a9080c9e825d1aeb19b9e0ad22738bd9c5124fdf",
-                "reference": "a9080c9e825d1aeb19b9e0ad22738bd9c5124fdf",
+                "url": "https://api.github.com/repos/phpguild/doctrine-extra-bundle/zipball/ee33007308c056d078adcc701ec511f32ea1c9f3",
+                "reference": "ee33007308c056d078adcc701ec511f32ea1c9f3",
                 "shasum": ""
             },
             "require": {
@@ -2041,9 +2041,9 @@
             "description": "Doctrine Extra Bundle",
             "support": {
                 "issues": "https://github.com/phpguild/doctrine-extra-bundle/issues",
-                "source": "https://github.com/phpguild/doctrine-extra-bundle/tree/v1.1.8"
+                "source": "https://github.com/phpguild/doctrine-extra-bundle/tree/v1.1.9"
             },
-            "time": "2021-09-16T05:08:57+00:00"
+            "time": "2021-09-16T08:09:00+00:00"
         },
         {
             "name": "psr/cache",

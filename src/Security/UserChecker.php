@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PhpGuild\UserBundle\Security;
 
-use Knp\DoctrineBehaviors\Contract\Entity\SoftDeletableInterface;
+use PhpGuild\DoctrineExtraBundle\Model\SoftDeletable\SoftDeletableInterface;
 use PhpGuild\UserBundle\Model\UserInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
