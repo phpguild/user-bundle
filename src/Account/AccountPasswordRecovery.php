@@ -6,7 +6,7 @@ namespace PhpGuild\UserBundle\Account;
 
 use Doctrine\ORM\EntityManagerInterface;
 use PhpGuild\UserBundle\Model\UserInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -24,7 +24,7 @@ class AccountPasswordRecovery
     /** @var ValidatorInterface $validator */
     private $validator;
 
-    /** @var UserPasswordEncoderInterface $encoder */
+    /** @var UserPasswordHasherInterface $encoder */
     private $encoder;
 
     /**
@@ -33,13 +33,13 @@ class AccountPasswordRecovery
      * @param EntityManagerInterface       $entityManager
      * @param TranslatorInterface          $translator
      * @param ValidatorInterface           $validator
-     * @param UserPasswordEncoderInterface $encoder
+     * @param UserPasswordHasherInterface  $encoder
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         ValidatorInterface $validator,
-        UserPasswordEncoderInterface $encoder
+        UserPasswordHasherInterface $encoder
     ) {
         $this->entityManager = $entityManager;
         $this->translator = $translator;

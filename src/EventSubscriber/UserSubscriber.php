@@ -8,22 +8,22 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\Common\EventSubscriber;
 use PhpGuild\UserBundle\Model\UserInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * Class UserSubscriber
  */
 final class UserSubscriber implements EventSubscriber
 {
-    /** @var UserPasswordEncoderInterface $encoder */
+    /** @var UserPasswordHasherInterface $encoder */
     private $encoder;
 
     /**
      * UserSubscriber constructor.
      *
-     * @param UserPasswordEncoderInterface $encoder
+     * @param UserPasswordHasherInterface $encoder
      */
-    public function __construct(UserPasswordEncoderInterface $encoder)
+    public function __construct(UserPasswordHasherInterface $encoder)
     {
         $this->encoder = $encoder;
     }
